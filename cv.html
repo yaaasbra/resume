@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- Кодировка: без неё русский текст превратится в кракозябры -->
+    <meta charset="UTF-8">
+    <!-- Адаптивность: ширина страницы = ширине экрана устройства -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Заголовок вкладки браузера -->
+    <title>Резюме — Аслан</title>
+
+    <style>
+        /* Сброс отступов браузера по умолчанию.
+           Без этого у body и абзацев будут «заводские» margin и padding.
+           box-sizing: border-box — ширина элемента включает padding и border */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Общие настройки всей страницы */
+        body {
+            font-family: monospace;      /* шрифт с запасным семейством */
+            font-size: 16px;                  /* базовый размер текста */
+            line-height: 1.6;                 /* межстрочный интервал (множитель) */
+            color: #35001c;                   /* основной цвет текста */
+            background-color: #ffd5eb;        /* светло-серый фон вокруг резюме */
+            padding: 40px 20px;               /* 40px сверху/снизу, 20px по бокам */
+        }
+
+        /* Белая «карточка» резюме по центру страницы */
+        .resume {
+            max-width: 900px;                 /* не растягивается шире 900px */
+            margin: 0 auto;                   /* авто-отступы по бокам центрируют блок */
+            background-color: #ffffff;        /* белый фон карточки */
+            padding: 40px;                    /* внутренние отступы */
+            border-radius: 8px;               /* скруглённые углы */
+        }
+
+        /* ===== ШАПКА С ПОРТРЕТОМ ===== */
+
+        /* Верхняя часть резюме: имя + фото */
+        header {
+            border-bottom: 2px solid #ff0084; /* синяя линия-разделитель снизу */
+            padding-bottom: 20px;             /* отступ от текста до линии */
+            margin-bottom: 30px;              /* отступ от линии до контента */
+        }
+
+        /* Таблица внутри шапки: слева текст, справа фото */
+        .header-table {
+            width: 100%;                      /* таблица на всю ширину */
+            border-collapse: collapse;        /* убирает двойные рамки между ячейками */
+        }
+
+        /* Левая ячейка — имя и должность */
+        .header-text {
+            vertical-align: middle;           /* выравнивание по вертикали по центру */
+        }
+
+        .header-text h1 {
+            font-size: 32px;                  /* размер имени */
+            margin-bottom: 5px;               /* отступ от имени до должности */
+        }
+
+        .header-text p {
+            font-size: 18px;                  /* размер подзаголовка */
+            color: #ff00847b;                   /* серый цвет — визуально «тише» имени */
+        }
+
+        /* Правая ячейка — портрет */
+        .header-photo {
+            width: 120px;                     /* фиксированная ширина ячейки */
+            vertical-align: middle;
+            text-align: right;                /* фото прижато к правому краю */
+        }
+
+        /* Сам портрет */
+        .header-photo img {
+            width: 100px;
+            height: 100px;                    /* квадратные пропорции */
+            object-fit: cover;                /* картинка обрезается, а не искажается */
+            border-radius: 50%;               /* круг */
+            border: 3px solid #ff0084;        /* синяя обводка в цвет акцента */
+            transition: transform 0.2s;       /* плавность для эффекта при наведении */
+        }
+
+        /* Эффект при наведении: фото чуть увеличивается */
+        .header-photo img:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== ОСНОВНАЯ РАСКЛАДКА (ДВЕ КОЛОНКИ) ===== */
+
+        /* Таблица-раскладка: слева основной контент, справа сайдбар */
+        .layout {
+            width: 100%;
+            border-collapse: collapse;
+            vertical-align: top;              /* содержимое ячеек — к верху */
+        }
+
+        .layout td {
+            vertical-align: top;              /* ещё раз: прижимаем к верху */
+            padding: 0 15px;                  /* отступы между колонками */
+        }
+
+        /* Левая колонка — занимает 65% ширины */
+        .col-main {
+            width: 65%;
+        }
+
+        /* Правая колонка — 35% */
+        .col-side {
+            width: 35%;
+        }
+
+        /* ===== СЕКЦИИ (блоки контента) ===== */
+
+        section {
+            margin-bottom: 25px;              /* отступ между блоками */
+        }
+
+        /* Заголовки секций: «Опыт работы», «Образование» и т.д. */
+        section h2 {
+            font-size: 20px;
+            text-transform: uppercase;        /* ВСЁ ЗАГЛАВНЫМИ */
+            letter-spacing: 1px;              /* разрядка между буквами */
+            color: #ff0084;                   /* синий акцент */
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ff00847b;    /* тонкая линия под заголовком */
+            padding-bottom: 5px;
+        }
+
+        /* Блок одной записи: место работы, вуз и т.п. */
+        article {
+            margin-bottom: 15px;
+        }
+
+        article h3 {
+            font-size: 17px;                  /* название должности/вуза */
+            margin-bottom: 3px;
+        }
+
+        /* Мета-информация: компания, город, даты */
+        article .meta {
+            font-size: 14px;
+            color: #ff00847b;                   /* серый — вторичная информация */
+            font-style: italic;               /* курсив */
+            margin-bottom: 5px;
+        }
+
+        /* ===== СПИСКИ ===== */
+
+        ul {
+            list-style: none;                 /* убираем стандартные точки */
+            padding-left: 0;
+        }
+
+        ul li {
+            padding-left: 15px;               /* место под собственный маркер */
+            position: relative;               /* чтобы ::before позиционировался внутри li */
+            margin-bottom: 5px;
+        }
+
+        /* Свой маркер вместо точки: длинное тире */
+        ul li::before {
+            content: "—";                     /* псевдоэлемент с текстом */
+            position: absolute;               /* абсолютно позиционирован внутри li */
+            left: 0;                          /* прижат к левому краю */
+            color: #ff0084;                   /* синий маркер */
+        }
+
+        /* ===== КОНТАКТЫ ===== */
+
+        /* address по умолчанию курсив — убираем */
+        address {
+            font-style: normal;
+        }
+
+        address p {
+            margin-bottom: 8px;
+        }
+
+        /* ===== АДАПТИВНОСТЬ: экраны уже 700px ===== */
+        @media (max-width: 700px) {
+            body {
+                padding: 15px;                /* меньше отступы вокруг */
+            }
+
+            .resume {
+                padding: 20px;
+            }
+
+            /* Главный приём: таблица «разбирается» на блоки.
+               Ячейки становятся блоками и встают друг под друга */
+            .layout,
+            .layout tbody,
+            .layout tr,
+            .layout td {
+                display: block;
+                width: 100%;
+            }
+
+            .layout td {
+                padding: 0;                   /* убираем боковые отступы колонок */
+            }
+
+            /* Сайдбар отделяем линией сверху, раз он теперь снизу */
+            .col-side {
+                margin-top: 25px;
+                padding-top: 25px;
+                border-top: 1px solid #ddd;
+            }
+
+            /* Уменьшаем имя и портрет, чтобы помещались на узком экране */
+            .header-text h1 {
+                font-size: 22px;
+            }
+
+            .header-photo {
+                width: 80px;
+            }
+
+            .header-photo img {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Белая карточка резюме -->
+    <div class="resume">
+
+        <!-- ШАПКА: имя слева, портрет справа -->
+        <header>
+            <table class="header-table">
+                <tr>
+                    <!-- Левая ячейка — текст -->
+                    <td class="header-text">
+                        <h1>Аслан</h1>
+                        <p>у меня лапки</p>
+                    </td>
+                    <!-- Правая ячейка — портрет.
+                         Ссылка вокруг картинки: клик открывает полное фото -->
+                    <td class="header-photo">
+                        <a href="photo-full.JPG" target="_blank">
+                            <img src="file:///Users/yasbra/Documents/Универ/3%20семестр/верстка/резюме/photo-full.JPG" alt="Фотография Льва Толстого">
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </header>
+
+        <!-- ОСНОВНАЯ РАСКЛАДКА: две колонки -->
+        <table class="layout">
+            <tr>
+                <!-- ЛЕВАЯ КОЛОНКА (65%) — основной контент -->
+                <td class="col-main">
+
+                    <section>
+                        <h2>Опыт работы</h2>
+
+                        <!-- Одна запись опыта: должность + мета + список -->
+                        <article>
+                            <h3>Добывание пропитания в диких условиях</h3>
+                            <p class="meta">Искитимский район · 2016-2022</p>
+                            <ul>                           
+                                <li>Выслеживал дичь</li>
+                                <li>Проявлял смелость и бесстрашие</li>
+                                <li>Приносил добычу</li>
+                                <li>Остался жив</li>
+                            </ul>
+                        </article>
+
+                        <article>
+                            <h3>Дверной звонок</h3>
+                            <p class="meta">Новосибирск · 2017-н.в.</p>
+                            <ul>
+                                <li>Громкое оповещение о приходящих и уходящих людях</li>
+                                <li>Защита домочатцев</li>
+                                <li>Десятки пораженных тапок</li>
+                            </ul>
+                        </article>
+
+                        <article>
+                            <h3>Золотодобытчик</h3>
+                            <p class="meta">Новосибисрк · 2025-н.в.</p>
+                            <ul>
+                                <li>Работал на раскопках в районе "Миска для еды/воды"</li>
+                                <li>На данный момент поиски не увенчались успехом</li>
+                            </ul>
+                        </article>
+
+                    </section>
+
+                    <section>
+                        <h2>Образование</h2>
+
+                        <article>
+                            <h3>Новосибирская Академия выклянчивания еды</h3>
+                            <p class="meta">Новосибирск · 2019</p>
+                            <p>Окончил с отличием</p>
+                        </article>
+
+                    </section>
+
+                </td>
+
+                <!-- ПРАВАЯ КОЛОНКА (35%) — сайдбар -->
+                <td class="col-side">
+
+                    <section>
+                        <h2>Контакты</h2>
+                        <!-- address — семантический тег для контактных данных -->
+                        <address>
+                            <p>Email: gav-gav@yandex.ru</p>
+                            <p>Телефон: +7(XXX)-XXX-XX-XX</p>
+                            <p>Город: Новосибирск</p>
+                            <p>GitHub: github.com/aslan-gav</p>
+                        </address>
+                    </section>
+
+                    <section>
+                        <h2>Навыки</h2>
+                        <ul>
+                            <li>Собачий язык (уровень: WOOF-2)</li>
+                            <li>Русский язык (уровень: НЕЛЬЗЯ понимаю с первого раза)</li>
+                            <li>Подражание животным (уровень: мастер)</li>
+                            <li>SQL</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Дополнительно</h2>
+                        <ul>
+                            <li>Лучшая собака в мире</li>
+                        </ul>
+                    </section>
+
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>
