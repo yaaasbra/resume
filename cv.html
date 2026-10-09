@@ -25,7 +25,8 @@
             line-height: 1.6;                 /* межстрочный интервал (множитель) */
             color: #35001c;                   /* основной цвет текста */
             background-color: #ffd5eb;        /* светло-серый фон вокруг резюме */
-            padding: 40px 20px;               /* 40px сверху/снизу, 20px по бокам */
+            padding: 40px 20px;   
+            transition: background-color 0.3s, color 0.3s;            /* 40px сверху/снизу, 20px по бокам */
         }
 
         /* Белая «карточка» резюме по центру страницы */
@@ -34,7 +35,31 @@
             margin: 0 auto;                   /* авто-отступы по бокам центрируют блок */
             background-color: #ffffff;        /* белый фон карточки */
             padding: 40px;                    /* внутренние отступы */
-            border-radius: 8px;               /* скруглённые углы */
+            border-radius: 8px;   
+            transition: background-color 0.3s;            /* скруглённые углы */
+        }
+        /* ===== Тёмная тема ===== */
+        /* Эти стили применятся, когда на body появится класс dark-theme */
+        body.dark-theme {
+            background-color: #b41768;
+            color: #ffffff;
+        }
+
+        body.dark-theme .resume {
+            background-color: #df79ad;
+        }
+
+        body.dark-theme section h2 {
+            border-bottom-color: #ffffffbc;
+        }
+
+        body.dark-theme article .meta,
+        body.dark-theme .header-text p {
+            color: #b41768;
+        }
+
+        body.dark-theme #hidden-text {
+            background-color: #b41768;
         }
 
         /* ===== ШАПКА С ПОРТРЕТОМ ===== */
@@ -88,6 +113,29 @@
         .header-photo img:hover {
             transform: scale(1.05);
         }
+
+        .controls {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+
+        .controls button {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: #b41768;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .controls button:hover {
+            background-color: #b41768;
+        }
+        
 
         /* ===== ОСНОВНАЯ РАСКЛАДКА (ДВЕ КОЛОНКИ) ===== */
 
@@ -180,6 +228,26 @@
             margin-bottom: 8px;
         }
 
+           /* ===== Скрытый блок ===== */
+           #hidden-text {
+            display: none;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        /* ===== Блок с цитатой ===== */
+        #quote-block {
+            margin-top: 15px;
+            padding: 15px;
+            border-left: 4px solid #b41768;
+            font-style: italic;
+            background-color: rgba(52, 152, 219, 0.05);
+            border-radius: 0 8px 8px 0;
+        }
+
         /* ===== АДАПТИВНОСТЬ: экраны уже 700px ===== */
         @media (max-width: 700px) {
             body {
@@ -251,6 +319,13 @@
                 </tr>
             </table>
         </header>
+
+         <!-- Панель управления: кнопки для интерактива -->
+         <div class="controls">
+            <button id="theme-button">Тёмная тема</button>
+            <button id="toggle-button">Показать дополнительно</button>
+            <button id="quote-button">Случайная цитата</button>
+        </div>
 
         <!-- ОСНОВНАЯ РАСКЛАДКА: две колонки -->
         <table class="layout">
@@ -336,6 +411,18 @@
                         <ul>
                             <li>Лучшая собака в мире</li>
                         </ul>
+
+                        <!-- Скрытый блок, который появится по кнопке -->
+                         <p id="hidden-text">
+                            гав-гав-гав
+                        </p>
+                    </section>
+
+                    <!-- Блок для случайной цитаты -->
+                    <section>
+                        <h2>Цитата дня</h2>
+                        <div id="quote-block">Нажмите «Случайная цитата», чтобы увидеть цитату.</div>
+                    </section>
                     </section>
 
                 </td>
@@ -343,6 +430,8 @@
         </table>
 
     </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
